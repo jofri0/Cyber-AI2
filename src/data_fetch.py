@@ -103,3 +103,55 @@ def main():
 
 if __name__ == "__main__":
     main()
+from youtube_transcript_api import YouTubeTranscriptApi
+import yt_dlp
+
+# Add this list for YouTube videos
+YOUTUBE_VIDEOS = [
+    "https://www.youtube.com/watch?v=WXsD0ZgxjRw",  # Example: Python tutorial
+    # "https://www.youtube.com/watch?v=xxxx"
+]
+
+def fetch_youtube_transcript(video_url):
+    """Fetch transcript of a YouTube video."""
+    print(f"Fetching transcript for {video_url} ...")
+    video_id = video_url.split("v=")[-1].split("&")[0]
+
+    try:
+        # Try YouTubeTranscriptApi
+        transcript = YouTubeTranscriptApi.get_transcript(video_id)
+        text = " ".join([t["text"] for t in transcript])
+        return text
+    except Exception as e:
+        print(f"No transcript API found for {video_url}: {e}")
+
+        # Fallback: try yt-dlp for subtitles
+        try:
+            ydl_opts = {
+                "skip_download": True,
+                "writesubtitles": True,
+                "writeautomaticsub": True,
+                "subtitleslangs": ["en"],
+                "outtmpl": "data/%(id)s.%(ext)s"
+            }
+            with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+                ydl.download([video_url])
+
+            # Find subtitle file
+            sub_file = f"data/{video_id}.en.vtt"
+            if os.path.exists(sub_file):
+                with open(sub_file, "r", encoding="utf-8") as f:
+                    text = f.read()
+                return text
+        except Exception as e2:
+            print(f"No subtitles found: {e2}")
+
+    return ""
+    # From YouTube videos
+        for video in YOUTUBE_VIDEOS:
+            try:
+                text = fetch_youtube_transcript(video)
+                if text.strip():
+                    f.write(f"\n\n# YOUTUBE VIDEO: {video}\n{text}\n\n")
+            except Exception as e:
+                print(f"Failed {video}: {e}")
