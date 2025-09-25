@@ -1,0 +1,2 @@
+Hello world. This is the beginning of my LLM.
+It will learn from scratch, word by word.
