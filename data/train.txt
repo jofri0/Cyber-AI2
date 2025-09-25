@@ -1,2 +1,6 @@
 Hello world. This is the beginning of my LLM.
 It will learn from scratch, word by word.
+Cybersecurity is the practice of protecting systems, networks, and data from digital attacks.
+Python is widely used in cybersecurity for scripting, automation, and penetration testing.
+def hello_world():
+    print("Hello, world!")
