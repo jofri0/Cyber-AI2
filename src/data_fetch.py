@@ -4,13 +4,15 @@ import os
 import PyPDF2
 import git
 import glob
+from youtube_transcript_api import YouTubeTranscriptApi
+import yt_dlp
 
 DATA_FILE = "data/train.txt"
 
 # List of URLs
 URLS = [
     "https://en.wikipedia.org/wiki/Cybersecurity",
-    "https://docs.python.org/3/tutorial/index.html"
+    "https://docs.python.org/3/tutorial/index.html",
     "https://0321537114.tiiny.site/"
 ]
 
@@ -26,13 +28,17 @@ REPOS = [
     "https://github.com/django/django.git"   # Django framework
 ]
 
+# List of YouTube videos
+YOUTUBE_VIDEOS = [
+    "https://www.youtube.com/watch?v=WXsD0ZgxjRw",  # Example: Python tutorial
+]
+
 def fetch_and_clean(url):
     """Download text from a URL and clean it up."""
     print(f"Fetching {url} ...")
     response = requests.get(url, timeout=10)
     response.raise_for_status()
     soup = BeautifulSoup(response.text, "html.parser")
-
     paragraphs = soup.find_all("p")
     text = "\n".join([p.get_text() for p in paragraphs])
     return text
@@ -63,7 +69,6 @@ def clone_and_extract(repo_url):
         git.Repo.clone_from(repo_url, repo_path)
 
     text = ""
-    # Collect .py, .md, .txt, .js files
     for ext in ["py", "md", "txt", "js"]:
         for file in glob.glob(f"{repo_path}/**/*.{ext}", recursive=True):
             try:
@@ -73,60 +78,18 @@ def clone_and_extract(repo_url):
                 print(f"Skipping {file}: {e}")
     return text
 
-def main():
-    os.makedirs("data", exist_ok=True)
-    with open(DATA_FILE, "w", encoding="utf-8") as f:
-        # From websites
-        for url in URLS:
-            try:
-                text = fetch_and_clean(url)
-                f.write(text + "\n\n")
-            except Exception as e:
-                print(f"Failed {url}: {e}")
-
-        # From PDFs
-        for pdf in PDFS:
-            try:
-                text = read_pdf(pdf)
-                f.write(text + "\n\n")
-            except Exception as e:
-                print(f"Failed {pdf}: {e}")
-
-        # From GitHub repos
-        for repo in REPOS:
-            try:
-                text = clone_and_extract(repo)
-                f.write(text + "\n\n")
-            except Exception as e:
-                print(f"Failed {repo}: {e}")
-
-    print(f"✅ Data saved to {DATA_FILE}")
-
-if __name__ == "__main__":
-    main()
-from youtube_transcript_api import YouTubeTranscriptApi
-import yt_dlp
-
-# Add this list for YouTube videos
-YOUTUBE_VIDEOS = [
-    "https://www.youtube.com/watch?v=WXsD0ZgxjRw",  # Example: Python tutorial
-    # "https://www.youtube.com/watch?v=xxxx"
-]
-
 def fetch_youtube_transcript(video_url):
     """Fetch transcript of a YouTube video."""
     print(f"Fetching transcript for {video_url} ...")
     video_id = video_url.split("v=")[-1].split("&")[0]
 
     try:
-        # Try YouTubeTranscriptApi
         transcript = YouTubeTranscriptApi.get_transcript(video_id)
         text = " ".join([t["text"] for t in transcript])
         return text
     except Exception as e:
         print(f"No transcript API found for {video_url}: {e}")
 
-        # Fallback: try yt-dlp for subtitles
         try:
             ydl_opts = {
                 "skip_download": True,
@@ -138,7 +101,6 @@ def fetch_youtube_transcript(video_url):
             with yt_dlp.YoutubeDL(ydl_opts) as ydl:
                 ydl.download([video_url])
 
-            # Find subtitle file
             sub_file = f"data/{video_id}.en.vtt"
             if os.path.exists(sub_file):
                 with open(sub_file, "r", encoding="utf-8") as f:
@@ -148,11 +110,47 @@ def fetch_youtube_transcript(video_url):
             print(f"No subtitles found: {e2}")
 
     return ""
-    # From YouTube videos
-        for video in YOUTUBE_VIDEOS:
+
+def main():
+    os.makedirs("data", exist_ok=True)
+
+    with open(DATA_FILE, "w", encoding="utf-8") as f:
+        # Fetch from websites
+        for url in URLS:
             try:
-                text = fetch_youtube_transcript(video)
-                if text.strip():
-                    f.write(f"\n\n# YOUTUBE VIDEO: {video}\n{text}\n\n")
+                text = fetch_and_clean(url)
+                f.write(text + "\n\n")
             except Exception as e:
-                print(f"Failed {video}: {e}")
+                print(f"Failed {url}: {e}")
+
+        # Fetch from PDFs
+        for pdf in PDFS:
+            try:
+                text = read_pdf(pdf)
+                f.write(text + "\n\n")
+            except Exception as e:
+                print(f"Failed {pdf}: {e}")
+
+        # Fetch from GitHub repos
+        for repo in REPOS:
+            try:
+                text = clone_and_extract(repo)
+                f.write(text + "\n\n")
+            except Exception as e:
+                print(f"Failed {repo}: {e}")
+
+    # Fetch from YouTube videos (append to the same file)
+    for video in YOUTUBE_VIDEOS:
+        try:
+            text = fetch_youtube_transcript(video)
+            if text.strip():
+                with open(DATA_FILE, "a", encoding="utf-8") as f:
+                    f.write(f"\n\n# YOUTUBE VIDEO: {video}\n{text}\n\n")
+        except Exception as e:
+            print(f"Failed {video}: {e}")
+
+    print(f"✅ Data saved to {DATA_FILE}")
+
+
+if __name__ == "__main__":
+    main()
