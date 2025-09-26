@@ -11,6 +11,7 @@ DATA_FILE = "data/train.txt"
 URLS = [
     "https://en.wikipedia.org/wiki/Cybersecurity",
     "https://docs.python.org/3/tutorial/index.html"
+    "https://0321537114.tiiny.site/"
 ]
 
 # List of PDF files
