@@ -1,9 +1,10 @@
 torch
 transformers
 datasets
- PyPDF2
+PyPDF2
 beautifulsoup4
 requests
 gitpython
 yt-dlp
-youtube-transcript-api
+youtube-transcript-api>=0.6.2
+lxml
