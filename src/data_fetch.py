@@ -29,6 +29,7 @@ REPOS = [
 # List of YouTube videos
 YOUTUBE_VIDEOS = [
     "https://www.youtube.com/watch?v=WXsD0ZgxjRw",
+    "https://youtu.be/zOjov-2OZ0E?si=BdeqYFi58RyB4vQx"
 ]
 
 def fetch_and_clean(url):
