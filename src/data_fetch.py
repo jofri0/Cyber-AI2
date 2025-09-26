@@ -13,7 +13,7 @@ DATA_FILE = "data/train.txt"
 URLS = [
     "https://en.wikipedia.org/wiki/Cybersecurity",
     "https://docs.python.org/3/tutorial/index.html",
-    "https://0321537114.tiiny.site/"
+    "https://0321537114.tiiny.site/"  # dead link, will be skipped gracefully
 ]
 
 # List of PDF files
@@ -36,7 +36,8 @@ YOUTUBE_VIDEOS = [
 def fetch_and_clean(url):
     """Download text from a URL and clean it up."""
     print(f"Fetching {url} ...")
-    response = requests.get(url, timeout=10)
+    headers = {"User-Agent": "Mozilla/5.0"}  # Spoof browser to avoid 403
+    response = requests.get(url, headers=headers, timeout=10)
     response.raise_for_status()
     soup = BeautifulSoup(response.text, "html.parser")
     paragraphs = soup.find_all("p")
@@ -84,11 +85,12 @@ def fetch_youtube_transcript(video_url):
     video_id = video_url.split("v=")[-1].split("&")[0]
 
     try:
+        # Works with upgraded youtube-transcript-api
         transcript = YouTubeTranscriptApi.get_transcript(video_id)
         text = " ".join([t["text"] for t in transcript])
         return text
     except Exception as e:
-        print(f"No transcript API found for {video_url}: {e}")
+        print(f"No transcript API for {video_url}: {e}")
 
         try:
             ydl_opts = {
@@ -115,31 +117,31 @@ def main():
     os.makedirs("data", exist_ok=True)
 
     with open(DATA_FILE, "w", encoding="utf-8") as f:
-        # Fetch from websites
+        # From websites
         for url in URLS:
             try:
                 text = fetch_and_clean(url)
-                f.write(text + "\n\n")
+                f.write(f"\n\n# WEBSITE: {url}\n{text}\n\n")
             except Exception as e:
                 print(f"Failed {url}: {e}")
 
-        # Fetch from PDFs
+        # From PDFs
         for pdf in PDFS:
             try:
                 text = read_pdf(pdf)
-                f.write(text + "\n\n")
+                f.write(f"\n\n# PDF: {pdf}\n{text}\n\n")
             except Exception as e:
                 print(f"Failed {pdf}: {e}")
 
-        # Fetch from GitHub repos
+        # From GitHub repos
         for repo in REPOS:
             try:
                 text = clone_and_extract(repo)
-                f.write(text + "\n\n")
+                f.write(f"\n\n# REPO: {repo}\n{text}\n\n")
             except Exception as e:
                 print(f"Failed {repo}: {e}")
 
-    # Fetch from YouTube videos (append to the same file)
+    # From YouTube videos (append mode)
     for video in YOUTUBE_VIDEOS:
         try:
             text = fetch_youtube_transcript(video)
@@ -153,4 +155,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    main()to
