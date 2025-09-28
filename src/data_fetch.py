@@ -157,7 +157,7 @@ def main():
 
 
 if __name__ == "__main__":
-    main()import requests
+    main()
 from bs4 import BeautifulSoup
 import os
 import PyPDF2
