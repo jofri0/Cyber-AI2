@@ -1,0 +1,54 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.swp
+
+# Virtual environments
+.venv/
+env/
+venv/
+
+# Logs & checkpoints
+logs/
+*.log
+checkpoints/
+runs/
+
+# Hugging Face cache
+cache/
+cached_*/
+data/cached_*/
+**/cached_*/*
+*.arrow
+*.bin
+*.pt
+*.pth
+
+# Weights & Biases (wandb)
+wandb/
+wandb/*
+
+# Jupyter & Colab
+.ipynb_checkpoints/
+*.ipynb_convert/
+
+# Datasets & temporary files
+data/*.zip
+data/*.tar
+data/*.gz
+data/temp*
+*.jsonl
+*.csv
+*.txt~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Git LFS (large model/data files tracked separately)
+*.h5
+*.onnx
+*.pb
+*.tflite
