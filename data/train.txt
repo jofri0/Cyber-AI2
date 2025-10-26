@@ -756,3 +756,256 @@ Creates a compressed backup of user documents.
 
 Would you like me to now generate Phase 3: Cybersecurity & Networking Advanced Training (so your AI can handle pentesting, encryption, and networking logic next)?
 
+Excellent 🔥
+Here’s 🧩 Phase 3 — Cybersecurity & Networking Advanced Training Data written as plain text (ready to append to your data/train.txt file).
+
+This section will teach your AI key cybersecurity, networking, and ethical hacking fundamentals — balanced between theory + code for safe, educational training.
+
+
+---
+
+🧩 PHASE 3 — CYBERSECURITY & NETWORKING ADVANCED TRAINING DATA
+
+====================================================
+### SECTION 3 — CYBERSECURITY & NETWORKING ADVANCED
+====================================================
+
+# 🔐 INTRODUCTION TO CYBERSECURITY
+Cybersecurity is the practice of protecting systems, networks, and data from digital attacks.  
+These attacks often aim to access, change, or destroy sensitive information, extort money, or disrupt operations.
+
+Key areas:
+- Network Security: Defending internal and external connections.
+- Application Security: Keeping software safe from exploits.
+- Information Security: Protecting data at rest and in transit.
+- Operational Security: Managing permissions and access.
+- Disaster Recovery: Responding to incidents and restoring operations.
+
+---
+
+# 🧠 SECURITY PRINCIPLES
+1. **Confidentiality** — Data must not be accessible by unauthorized users.
+2. **Integrity** — Data should not be tampered with or altered.
+3. **Availability** — Systems and data should remain accessible when needed.
+4. **Authentication** — Verifying user or system identity.
+5. **Authorization** — Granting permission based on identity and roles.
+
+---
+
+# 🧩 NETWORKING FUNDAMENTALS
+- IP Address: A unique number assigned to each device (IPv4 or IPv6).
+- MAC Address: Hardware identifier for a network interface.
+- DNS: Translates human-readable names (e.g., google.com) to IP addresses.
+- DHCP: Assigns IP addresses dynamically.
+- HTTP/HTTPS: Protocols used for web communication.
+- OSI Model: 7 layers (Physical → Application).
+
+Example:
+
+Application – Browser, web apps Transport – TCP/UDP Network – IP routing Data Link – Ethernet, MAC Physical – Wires, Wi-Fi signals
+
+---
+
+# 🧰 PYTHON NETWORKING EXAMPLES
+### TCP Client
+```python
+import socket
+client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+client.connect(("example.com", 80))
+client.send(b"GET / HTTP/1.1\r\nHost: example.com\r\n\r\n")
+print(client.recv(1024))
+client.close()
+
+UDP Communication
+
+import socket
+sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+sock.sendto(b"Cyber AI test", ("127.0.0.1", 9999))
+
+Ping Script (System)
+
+import os
+hostname = "8.8.8.8"
+response = os.system(f"ping -c 2 {hostname}")
+if response == 0:
+    print("Connected to the internet!")
+
+
+---
+
+🧮 ENCRYPTION & HASHING
+
+Encryption is the process of encoding data so that only authorized parties can access it.
+
+AES Encryption Example
+
+from Crypto.Cipher import AES
+from Crypto.Random import get_random_bytes
+
+key = get_random_bytes(16)
+cipher = AES.new(key, AES.MODE_EAX)
+ciphertext, tag = cipher.encrypt_and_digest(b"Cyber AI Encryption Example")
+print(ciphertext)
+
+RSA Key Generation
+
+from Crypto.PublicKey import RSA
+key = RSA.generate(2048)
+private_key = key.export_key()
+public_key = key.publickey().export_key()
+
+
+---
+
+🔍 ETHICAL HACKING BASICS
+
+Ethical hacking is testing a system’s defenses — legally and responsibly — to improve security.
+
+Key phases:
+
+1. Reconnaissance (information gathering)
+
+
+2. Scanning (identifying open ports, services)
+
+
+3. Exploitation (testing vulnerabilities)
+
+
+4. Reporting (documenting findings)
+
+
+
+
+---
+
+🧭 INFORMATION GATHERING
+
+WHOIS Lookup (Python)
+
+import whois
+domain = whois.whois("example.com")
+print(domain)
+
+DNS Query
+
+import dns.resolver
+result = dns.resolver.resolve("example.com", "A")
+for ip in result:
+    print(ip)
+
+
+---
+
+🧠 SECURITY AUTOMATION
+
+Password Strength Checker
+
+import re
+
+def check_password_strength(password):
+    if len(password) < 8:
+        return "Weak: Too short"
+    if not re.search("[A-Z]", password):
+        return "Weak: Missing uppercase letter"
+    if not re.search("[0-9]", password):
+        return "Weak: Missing number"
+    if not re.search("[!@#$%^&*]", password):
+        return "Weak: Missing special character"
+    return "Strong password"
+
+print(check_password_strength("CyberAI@2025"))
+
+
+---
+
+🧑‍💻 FIREWALL & SECURITY MONITORING CONCEPTS
+
+Firewalls block or allow traffic based on rules.
+
+IDS/IPS (Intrusion Detection/Prevention Systems) monitor for malicious activity.
+
+VPNs encrypt traffic between clients and servers.
+
+Security Logs track system events for analysis.
+
+
+Example firewall rule:
+
+ALLOW TCP port 80 (HTTP)
+ALLOW TCP port 443 (HTTPS)
+DENY ALL others
+
+
+---
+
+🧰 BASIC PENETRATION TESTING STEPS
+
+1. Identify the target system.
+
+
+2. Gather information (subdomains, IPs, OS type).
+
+
+3. Check open ports.
+
+
+4. Search for known vulnerabilities.
+
+
+5. Test login forms for weak credentials.
+
+
+6. Document results ethically.
+
+
+
+
+---
+
+⚙️ NETWORK VISUALIZATION CONCEPT
+
+Example of how packets move:
+
+[User PC] ---(HTTP Request)---> [Web Server]
+[Web Server] ---(HTML Response)---> [User PC]
+
+
+---
+
+🧩 SECURITY IN SOFTWARE DEVELOPMENT
+
+Always sanitize user inputs (prevent SQL injection & XSS).
+
+Use HTTPS and secure cookies.
+
+Store passwords with strong hashing (bcrypt, Argon2).
+
+Apply least privilege principle in APIs and databases.
+
+
+
+---
+
+🧠 EXERCISE MODE
+
+Q: What are the three pillars of cybersecurity? A: Confidentiality, Integrity, and Availability.
+
+Q: What is a port number used for? A: To identify specific network services (e.g., HTTP uses port 80).
+
+Q: Why use HTTPS instead of HTTP? A: HTTPS encrypts data for secure transmission.
+
+==================================================== END OF PHASE 3 — CYBERSECURITY & NETWORKING ADVANCED
+
+---
+
+### ✅ What This Phase Adds:
+Your model will now:
+- Understand **network protocols**, IPs, ports, and connections.  
+- Learn **secure coding**, encryption, and hashing basics.  
+- Be able to generate **ethical hacking explanations & Python automation scripts**.  
+
+---
+
+Would you like me to generate **Phase 4: Artificial Intelligence & Machine Learning Fundamentals (AI Training)** next — so your model can start understanding TensorFlow, PyTorch, and model creation concepts?
+
