@@ -523,3 +523,236 @@ If yes, please confirm the format:
 📗 .pdf (for study/training materials)
 📙 or both
 
+Perfect ❤️ — we’ll generate Phase 2: Practical Code Training Data as a single plain-text file that continues your train.txt.
+Below is the exact content you can append to data/train.txt (or replace it entirely if you want a code-focused dataset).
+
+
+---
+
+🧩 PHASE 2 — PRACTICAL CODE TRAINING DATA
+
+====================================================
+### SECTION 2 — PROGRAMMING LANGUAGES & CODE EXAMPLES
+====================================================
+
+# 🐍 PYTHON EXAMPLES
+### TOPIC: Variables and Loops
+```python
+for i in range(5):
+    print("Hello Cyber AI", i)
+
+EXPLANATION:
+
+Uses a for loop to print a message five times.
+
+TOPIC: Functions and Recursion
+
+def factorial(n):
+    return 1 if n == 0 else n * factorial(n - 1)
+
+print(factorial(5)) # Output: 120
+
+EXPLANATION:
+
+Demonstrates recursion and function definition in Python.
+
+TOPIC: File I/O
+
+with open("data.txt", "w") as f:
+    f.write("Cyber AI data pipeline")
+
+EXPLANATION:
+
+Opens a file and writes text using context manager.
+
+
+---
+
+💻 JAVASCRIPT EXAMPLES
+
+TOPIC: DOM Manipulation
+
+<button id="btn">Click Me</button>
+<script>
+document.getElementById("btn").addEventListener("click", () => {
+ alert("Hello from Cyber AI!");
+});
+</script>
+
+EXPLANATION:
+
+Attaches a click event to a button and shows an alert.
+
+TOPIC: Async/Await
+
+async function fetchData() {
+ const res = await fetch("https://api.github.com");
+ const data = await res.json();
+ console.log(data);
+}
+fetchData();
+
+EXPLANATION:
+
+Shows asynchronous HTTP fetch using modern JavaScript.
+
+
+---
+
+⚙️ C/C++ EXAMPLES
+
+TOPIC: Basic I/O and Loop
+
+#include <stdio.h>
+int main() {
+ for(int i = 0; i < 5; i++) {
+  printf("Cyber AI C Loop %d\n", i);
+ }
+ return 0;
+}
+
+EXPLANATION:
+
+Simple loop in C printing to console.
+
+
+---
+
+☕ JAVA EXAMPLES
+
+TOPIC: Class and Object
+
+public class HelloCyberAI {
+  public static void main(String[] args) {
+    System.out.println("Hello Cyber AI");
+  }
+}
+
+EXPLANATION:
+
+Shows a basic Java class structure and main method.
+
+
+---
+
+🌐 WEB DEV EXAMPLES
+
+TOPIC: Simple HTML/CSS
+
+<!DOCTYPE html>
+<html>
+ <head>
+  <style>
+   body { background: #101820; color: #00ff99; font-family: monospace; }
+  </style>
+ </head>
+ <body>
+  <h1>Cyber AI Webpage</h1>
+  <p>Learning HTML and CSS.</p>
+ </body>
+</html>
+
+EXPLANATION:
+
+Demonstrates basic HTML layout and inline CSS.
+
+
+---
+
+🗄️ SQL EXAMPLES
+
+TOPIC: Create and Query Table
+
+CREATE TABLE users (id INT, name VARCHAR(50));
+INSERT INTO users VALUES (1, 'Alice'), (2, 'Bob');
+SELECT * FROM users WHERE id = 1;
+
+EXPLANATION:
+
+Shows simple table creation and query in SQL.
+
+
+---
+
+🔒 CYBERSECURITY EXAMPLES
+
+TOPIC: Hashing with SHA256 (Python)
+
+import hashlib
+text = "Cyber AI Security"
+print(hashlib.sha256(text.encode()).hexdigest())
+
+EXPLANATION:
+
+Converts text to a secure SHA-256 hash.
+
+TOPIC: Port Scanning (Basic)
+
+import socket
+for port in range(20, 26):
+  s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+  if s.connect_ex(('127.0.0.1', port)) == 0:
+    print(f"Port {port} open")
+  s.close()
+
+EXPLANATION:
+
+Simple TCP scanner for educational purposes.
+
+
+---
+
+🤖 MACHINE LEARNING EXAMPLES
+
+TOPIC: Linear Regression with Scikit-learn
+
+from sklearn.linear_model import LinearRegression
+import numpy as np
+
+X = np.array([[1], [2], [3], [4]])
+y = np.array([2, 4, 6, 8])
+
+model = LinearRegression()
+model.fit(X, y)
+print(model.predict([[5]]))
+
+EXPLANATION:
+
+Trains a simple linear model to predict y from X.
+
+
+---
+
+🐧 AUTOMATION EXAMPLES
+
+TOPIC: Bash Backup Script
+
+#!/bin/bash
+tar -czf backup.tar.gz ~/Documents
+echo "Backup complete!"
+
+EXPLANATION:
+
+Creates a compressed backup of user documents.
+
+==================================================== END OF PHASE 2 — PRACTICAL CODE TRAINING DATA
+
+---
+
+### 🪄 To Use
+1. In Colab or your repo:
+   ```python
+   with open("data/train.txt", "a", encoding="utf-8") as f:
+       f.write(phase2_code_text)
+
+(or just paste this content manually into data/train.txt)
+
+2. Then rerun your training (train.py) to let the model learn programming syntax and logic.
+
+
+
+
+---
+
+Would you like me to now generate Phase 3: Cybersecurity & Networking Advanced Training (so your AI can handle pentesting, encryption, and networking logic next)?
+
