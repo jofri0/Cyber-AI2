@@ -25,15 +25,25 @@ tokenizer = GPT2TokenizerFast.from_pretrained("gpt2")  # Start from GPT-2 tokeni
 tokenizer.save_pretrained(OUTPUT_DIR)
 
 # 3. Load dataset
-def load_dataset(file_path, tokenizer, block_size=128):
-    return TextDataset(
-        tokenizer=tokenizer,
-        file_path=file_path,
-        block_size=block_size
+print("Loading dataset...")
+
+dataset = load_dataset("text", data_files=DATA_PATH)
+
+def tokenize_function(examples):
+    return tokenizer(
+        examples["text"],
+        truncation=True,
+        padding="max_length",
+        max_length=128
     )
 
-print("Loading dataset...")
-train_dataset = load_dataset(DATA_PATH, tokenizer)
+tokenized_dataset = dataset.map(
+    tokenize_function,
+    batched=True,
+    remove_columns=["text"]
+)
+
+train_dataset = tokenized_dataset["train"]
 
 # 4. Create model
 print("Creating GPT2 model from scratch...")
