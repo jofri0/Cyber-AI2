@@ -20,6 +20,7 @@ print("Loading GPT2 config...")
 config = GPT2Config.from_json_file(CONFIG_PATH)
 
 # 2. Create tokenizer
+tokenizer = GPT2TokenizerFast.from_pretrained("gpt2")
 print("Training tokenizer...")
 tokenizer = GPT2TokenizerFast.from_pretrained("gpt2")  # Start from GPT-2 tokenizer
 tokenizer.save_pretrained(OUTPUT_DIR)
