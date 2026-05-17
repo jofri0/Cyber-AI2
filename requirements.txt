@@ -8,13 +8,3 @@ gitpython
 yt-dlp
 youtube-transcript-api>=0.6.2
 lxml
-from transformers import (
-    GPT2Config,
-    GPT2LMHeadModel,
-    GPT2TokenizerFast,
-    Trainer,
-    TrainingArguments,
-    DataCollatorForLanguageModeling
-)
-
-from datasets import load_dataset
