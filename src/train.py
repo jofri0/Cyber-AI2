@@ -1,5 +1,14 @@
 import os
-from transformers import GPT2Config, GPT2LMHeadModel, GPT2TokenizerFast, Trainer, TrainingArguments, TextDataset, DataCollatorForLanguageModeling
+from transformers import (
+    GPT2Config,
+    GPT2LMHeadModel,
+    GPT2TokenizerFast,
+    Trainer,
+    TrainingArguments,
+    DataCollatorForLanguageModeling
+)
+
+from datasets import load_dataset
 
 # Paths
 DATA_PATH = "data/train.txt"
